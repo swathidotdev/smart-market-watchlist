@@ -1,0 +1,1 @@
+"""Change event ORM model."""

@@ -1,0 +1,1 @@
+"""Default Yahoo Finance provider."""

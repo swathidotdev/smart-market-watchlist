@@ -1,0 +1,1 @@
+"""Quote freshness state logic."""

@@ -1,0 +1,1 @@
+"""User check ORM model."""
