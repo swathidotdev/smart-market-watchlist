@@ -1,7 +1,41 @@
-/DOCS
-
-# Python environments and caches
+# Python / Virtual Environment
+.venv/
 venv/
+ENV/
+env/
 __pycache__/
 *.py[cod]
+*$py.class
 .pytest_cache/
+.coverage
+htmlcov/
+DOCS/
+
+# Environment Variables & Secrets
+.env
+.env.local
+*.env
+backend/.env
+
+# Node / React Frontend
+frontend/node_modules/
+node_modules/
+frontend/dist/
+frontend/build/
+.next/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database / Local Storage
+*.sqlite3
+*.db
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

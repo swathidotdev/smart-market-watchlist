@@ -1,1 +1,41 @@
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
+
+export class ApiError extends Error {
+  constructor(
+    public status: number,
+    message: string,
+  ) {
+    super(message);
+    this.name = "ApiError";
+  }
+}
+
+async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
+    ...init,
+  });
+
+  if (!res.ok) {
+    let detail = res.statusText;
+    try {
+      const body = await res.json();
+      detail = body?.detail ?? detail;
+    } catch {
+      /* non-JSON error body; keep statusText */
+    }
+    throw new ApiError(res.status, detail);
+  }
+
+  return (await res.json()) as T;
+}
+
+export interface HealthResponse {
+  status: string;
+  app: string;
+  environment: string;
+}
+
+export const api = {
+  health: () => request<HealthResponse>("/health"),
+};
