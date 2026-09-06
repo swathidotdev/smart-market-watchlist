@@ -10,6 +10,7 @@ class Settings(BaseSettings):
 
     app_name: str = "Smart Market Watchlist"
     environment: str = "development"
+    data_provider: str = "yfinance"
 
     # asyncpg URL for the app; Alembic reads this too.
     database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/smw"
