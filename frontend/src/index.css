@@ -1,0 +1,29 @@
+/* Design tokens (DESIGN.md). Full visual system lands in Phase G;
+   set here now so nothing later has to introduce them from scratch. */
+:root {
+  --canvas: #ECEEEC;
+  --ink: #1B1F1D;
+  --signal: #C77D2E;
+  --gain: #3C7A5D;
+  --loss: #A23B3B;
+  --hairline: #D8D5CC;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "IBM Plex Sans", sans-serif;
+}
+
+.shell {
+  max-width: 720px;
+  margin: 0;
+  padding: 48px 32px;
+}
+
+.muted { color: var(--ink); opacity: 0.6; }
+.ok { color: var(--gain); }
+.err { color: var(--loss); }
