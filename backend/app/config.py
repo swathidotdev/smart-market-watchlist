@@ -21,6 +21,13 @@ class Settings(BaseSettings):
 
     cors_origins: list[str] = ["http://localhost:5173"]
 
+        # Poller
+    poll_interval_seconds: int = 300      # how often the background poller runs
+    poll_lookback_days: int = 60          # daily bars fetched/stored per symbol per poll
+    enable_poller: bool = True            # off in tests / when running one-off scripts
+
+    # Cache
+    quote_cache_ttl_seconds: int = 60     # symbol-keyed TTL; one fetch serves all watchers
 
 @lru_cache
 def get_settings() -> Settings:

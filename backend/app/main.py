@@ -1,4 +1,5 @@
 import logging
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
@@ -9,6 +10,8 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.api.routes_auth import router as auth_router
 from app.config import settings
+from app.jobs.poller import poll_once
+from app.jobs.scheduler import shutdown_scheduler, start_scheduler
 
 logging.basicConfig(
     level=logging.INFO,
@@ -16,7 +19,20 @@ logging.basicConfig(
 )
 logger = logging.getLogger("app")
 
-app = FastAPI(title=settings.app_name)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Warm start: one poll now so the dashboard has data immediately, then the
+    # interval scheduler takes over. Both are no-ops if ENABLE_POLLER=false.
+    if settings.enable_poller:
+        try:
+            await poll_once()
+        except Exception:
+            logger.exception("Warm-start poll failed (continuing to schedule anyway)")
+    start_scheduler()
+    yield
+    shutdown_scheduler()
+
+app = FastAPI(title=settings.app_name, lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
