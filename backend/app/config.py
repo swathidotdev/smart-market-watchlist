@@ -27,7 +27,8 @@ class Settings(BaseSettings):
     enable_poller: bool = True            # off in tests / when running one-off scripts
 
     # Cache
-    quote_cache_ttl_seconds: int = 60     # symbol-keyed TTL; one fetch serves all watchers
+    quote_cache_ttl_seconds: int = 60  
+    check_dedup_window_seconds: int = 30  
 
 @lru_cache
 def get_settings() -> Settings:
