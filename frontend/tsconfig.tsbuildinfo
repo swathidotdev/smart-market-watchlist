@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/api/client.ts","./src/components/changefeedcard.tsx","./src/components/componentbreakdown.tsx","./src/components/emptystate.tsx","./src/components/freshnessindicator.tsx","./src/components/watchlisttable.tsx","./src/pages/dashboard.tsx","./src/pages/login.tsx","./src/pages/stockdetail.tsx"],"version":"5.9.3"}

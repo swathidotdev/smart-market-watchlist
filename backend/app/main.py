@@ -13,6 +13,11 @@ from app.config import settings
 from app.jobs.poller import poll_once
 from app.jobs.scheduler import shutdown_scheduler, start_scheduler
 
+from app.api.routes_acknowledge import router as acknowledge_router
+from app.api.routes_dashboard import router as dashboard_router
+from app.api.routes_stock import router as stock_router
+from app.api.routes_watchlist import router as watchlist_router
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(name)s %(message)s",
@@ -69,3 +74,7 @@ async def health() -> dict:
 
 
 app.include_router(auth_router)
+app.include_router(watchlist_router)
+app.include_router(dashboard_router)
+app.include_router(stock_router)
+app.include_router(acknowledge_router)
